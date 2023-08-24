@@ -8,97 +8,59 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios.get('https://strapi-rygs.onrender.com/api/prodis');
-      // setQuotes(res.data.data);
-      console.log(res.data.data[0].attributes.prodi[0]);
+      // console.log(res.data.data[0].attributes.prodi[0]);
       setAPI(res.data.data[0].attributes.prodi[0]);
     };
 
     fetchData();
   }, []);
 
-  // return (
-  // <div>
-  //   {quotes?.map((item, index) => (
-  //     <div>
-  //       {item.attributes.Quote}
-  //       <br /> - {item.attributes.Author}
-  //       <br />
-  //     </div>
-  //   ))}
-  // </div>
-  // );
-
   return (
     <div>
       {api.map((prodi) => {
         return (
-          <div key={prodi.kode_prodi}>
+          <div key={prodi.kode_prodi} >
             <p>{prodi.nama_prodi}</p>
-            <p>{prodi.kepala_prodi}</p>
-            <p>{prodi?.sektretaris}</p>
-            {prodi.mahasiswa &&
-              prodi.mahasiswa.map((mahasiswa) => (
-                <div key={prodi.kode_prodi}>
-                  {mahasiswa.tahun_masuk}
-                  {/* {console.log(mahasiswa.data.pagi[2].nama)} */}
-                  <br />
-                  {mahasiswa.data.pagi[0].nama}
-                  <br />
-                  {mahasiswa.data.pagi[0].id}
-                  <br />
-                  {mahasiswa.data.pagi[0].jenis_kelamin}
-                  <br />
-                  {mahasiswa.data.pagi[0].alamat}
-                  <br />
-                  {mahasiswa.data.pagi[0].hobi}
-                  <br />
-                  {mahasiswa.data.pagi[1].nama}
-                  <br />
-                  {mahasiswa.data.pagi[1].id}
-                  <br />
-                  {mahasiswa.data.pagi[1].jenis_kelamin}
-                  <br />
-                  {mahasiswa.data.pagi[1].alamat}
-                  <br />
-                  {mahasiswa.data.pagi[1].hobi}
-                  
-                  <br />
-                  {mahasiswa.data.pagi[2].nama}
-                  <br />
-                  {mahasiswa.data.pagi[2].id}
-                  <br />
-                  {mahasiswa.data.pagi[2].jenis_kelamin}
-                  <br />
-                  {mahasiswa.data.pagi[2].alamat}
-                  <br />
-                  {mahasiswa.data.pagi[2].hobi}
-                  <br />
-                  {mahasiswa.data.malam[0].nama}
-                  {mahasiswa.data.malam[0].id}
-                  {mahasiswa.data.malam[0].jenis_kelamin}
-                  {mahasiswa.data.malam[0].alamat}
-                  {mahasiswa.data.malam[0].hobi}
-                  <br />
-                  {mahasiswa.data.malam[1].nama}
-                  {mahasiswa.data.malam[1].id}
-                  {mahasiswa.data.malam[1].jenis_kelamin}
-                  {mahasiswa.data.malam[1].alamat}
-                  {mahasiswa.data.malam[1].hobi}
-                  <br />
-                  {mahasiswa.data.cuti.data}
-                  {/* {mahasiswa.data.pagi[2].nama} */}
-                  <br />
-                  <br />
-                </div>
-              ))}
-
-            {prodi.mahasiswa.data &&
-              prodi.mahasiswa.data.map((kelas) => (
-                <div key={prodi.kode_prodi}>
-                  {kelas.nama}
-                  <br />
-                </div>
-              ))}
+            <p>Kepala : {prodi.kepala_prodi}</p>
+            {prodi.sektretaris ? <p>Sekretaris : {prodi?.sektretaris}</p> : null}
+            {prodi.mahasiswa.map((mahasiswa) => (
+              <div key={mahasiswa.tahun_masuk}>
+                <br />
+                Angkatan : {mahasiswa.tahun_masuk}
+                {Object.keys(mahasiswa.data).map((item, i) => (
+                  <div>
+                    <br />
+                    kelas : {item}
+                    {mahasiswa.data[item].length != 0 ? (
+                      mahasiswa.data[item].map((listMahasiswa, index) => (
+                        <div>
+                          <table border={'1px'}>
+                            <tr>
+                              <th>NPM</th>
+                              <th>Nama</th>
+                              <th>Alamat</th>
+                              <th>Jenis Kelamin</th>
+                              <th>Hobi</th>
+                            </tr>
+                            <tr>
+                              <td>{mahasiswa.tahun_masuk.substring(2, 4) + (parseInt(mahasiswa.tahun_masuk.substring(2, 4)) + 4) + prodi.kode_prodi + '00' + parseInt('00') + parseInt(index + 1)}</td>
+                              <td>{listMahasiswa.nama}</td>
+                              <td>{listMahasiswa.alamat}</td>
+                              <td>{listMahasiswa.jenis_kelamin}</td>
+                              <td>
+                                <span>{(i.hobi ? ' ,' : '') + listMahasiswa.hobi}</span>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      ))
+                    ) : (
+                      <p>Tidak ada Mahasiswa yang mengambil kelas ini.</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
         );
       })}
