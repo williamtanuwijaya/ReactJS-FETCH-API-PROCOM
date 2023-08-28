@@ -21,7 +21,7 @@ function Mahasiswa() {
     //   const listMahasiswa = kelasMap.data[e];
     // })
 
-    console.log(Object.keys(kelasMap.data));
+    // console.log(Object.keys(kelasMap.data));
     for (const kelas in kelasMap.data) {
       const listMahasiswa = kelasMap.data[kelas];
       mahasiswa = listMahasiswa.find((e) => e.id === idMahasiswa);
@@ -42,13 +42,13 @@ function Mahasiswa() {
       setDataFetched(true);
       return;
     }
-    console.log('parsing npm');
+    // console.log('parsing npm');
 
     const tahunAjaran = id.slice(0, 2);
     const tahunLulus = id.slice(2, 4);
     const kodeProdi = +id.slice(4, 6);
     const idMahasiswa = +id.slice(6);
-    console.log(tahunAjaran, tahunLulus, kodeProdi, idMahasiswa);
+    // console.log(tahunAjaran, tahunLulus, kodeProdi, idMahasiswa);
 
     fetchData(tahunAjaran, tahunLulus, kodeProdi, idMahasiswa);
   }, []);
