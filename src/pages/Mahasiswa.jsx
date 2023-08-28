@@ -62,7 +62,7 @@ function Mahasiswa() {
   return (
     <div>
       <h1>Detail Data Mahasiswa</h1>
-      <h3>NPM: {data.id}</h3>
+      <h3>NPM: {id}</h3>
       <h3>Nama: {data.nama}</h3>
       <h3>Jenis Kelamin: {data.jenis_kelamin === 'L' ? 'Laki-laki' : data.jenis_kelamin === 'P' ? 'Perempuan' : 'Tidak Diketahui'}</h3>
       <h3>Alamat: {data.alamat}</h3>
